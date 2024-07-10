@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="input.css">
+    <script src="main.js"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+</head>
+<body>
+   <!-- menu bar -->
+   <style>
+    .sidebar-open {
+        transform: translateX(0);
+    }
+    .submenu-open {
+        max-height: 500px; /* arbitrary high value to allow for smooth transition */
+    }
+</style>
+</head>
+
+
+
+<!-- nav top bar -->
+<div class="py-2 px-4 bg-white flex items-center shadow-md shadow-black/5">
+<!-- sidebar -->
+ 
+<div class="menu-container sm:w-full">
+  <!-- Menu Button -->
+  <div class="menubtn p-2 cursor-pointer" id="menuBtn">
+      <i class="ri-menu-line text-2xl"></i>
+  </div>
+  
+  <!-- Sidebar -->
+  <div class="sidebar fixed top-0 left-0 h-full w-64 overflow-auto bg-gray-300 shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50" id="sidebar">
+      <!-- Sidebar Header -->
+      <header class="flex items-center justify-between p-4 border-b">
+          <div class="close-btn cursor-pointer" id="closeBtn">
+              <i class="ri-close-line text-2xl"></i>
+          </div>
+          <div class="flex items-center space-x-2">
+              <img src="images/download.png" alt="Profile Image" class="rounded-full h-10 w-10">
+              <h1 class="text-xl font-bold">LOGO</h1>
+          </div>
+      </header>
+  
+      <!-- Sidebar Navigation -->
+      <nav class="menu py-4">
+          <!-- Dashboard Link -->
+          <div class="item text-xl">
+              <a href="index.html" class="flex items-center space-x-2 mt-2 mb-2 px-8 py-8" id="dashboardLink">
+                  <i class="ri-dashboard-line"></i> <span>Dashboard</span>
+              </a>
+          </div>
+  
+          <!-- Tables Dropdown -->
+          <div class="item relative">
+              <a href="table.html" class="flex items-center justify-between space-x-2" id="toggleTables">
+                  <div class="flex items-center space-x-2 text-xl  mt-2 mb-2 px-8 py-8">
+                      <i class="ri-table-line"></i> <span>Tables</span>
+                      <i class="ri-arrow-right-s-line"></i>
+                  </div>
+              </a>
+              <div class="sub-menu px-2 text-sm absolute top-12 left-20 bg-gray-200 shadow-lg transition-all duration-300 ease-in-out overflow-hidden max-h-0" id="tablesDropdown">
+                  <a href="table.html" class="sub-item block py-2">Sub item 1</a>
+                  <a href="subitem2" class="sub-item block py-2">Sub item 2</a>
+                  <a href="subitem3" class="sub-item block py-2">Sub item 3</a>
+              </div>
+          </div>
+  
+          <!-- Services Dropdown -->
+          <div class="item relative">
+              <a href="service.html" class="flex items-center justify-between space-x-2" id="toggleServices">
+                  <div class="flex items-center space-x-2  mt-2 mb-2 px-8 py-8 text-xl">
+                      <i class="ri-terminal-window-fill"></i> <span>Services</span>
+                      <i class="ri-arrow-right-s-line"></i>
+                  </div>
+              </a>
+              <div class="sub-menu px-2 text-sm absolute top-12 left-20 bg-gray-200 shadow-lg transition-all duration-300 ease-in-out overflow-hidden max-h-0" id="servicesDropdown">
+                  <a href="service.html" class="sub-item block py-2">Sub item 1</a>
+                  <a href="service.html" class="sub-item block py-2">Sub item 2</a>
+                  <a href="service.html" class="sub-item block py-2">Sub item 3</a>
+              </div>
+          </div>
+  
+          <!-- Form Link -->
+          <div class="item">
+              <a href="form.html" class="flex items-center space-x-2  mt-2 mb-2 px-8 py-8 text-xl">
+                  <i class="ri-survey-line"></i> <span>Form</span>
+              </a>
+          </div>
+  
+          <!-- Settings Link -->
+          <div class="item">
+              <a href="setting.html" class="flex items-center space-x-2  mt-2 mb-2 px-8 py-8 text-xl">
+                  <i class="ri-file-settings-line"></i> <span>Settings</span>
+              </a>
+          </div>
+      </nav>
+  </div>
+  </div>
+  
+  <script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('sidebar-open');
+  });
+  
+  document.getElementById('closeBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('sidebar-open');
+  });
+  
+  document.getElementById('toggleTables').addEventListener('click', (e) => {
+      e.preventDefault();
+      const tablesDropdown = document.getElementById('tablesDropdown');
+      tablesDropdown.classList.toggle('submenu-open');
+  });
+  
+  document.getElementById('toggleServices').addEventListener('click', (e) => {
+      e.preventDefault();
+      const servicesDropdown = document.getElementById('servicesDropdown');
+      servicesDropdown.classList.toggle('submenu-open');
+  });
+  </script>
+  
+  <!-- Breadcrumbs -->
+  <ul class="flex items-center text-sm ml-4">
+      <li class="mr-2">
+          <a href="index.html" class="text-gray-400 hover:text-gray-700">Dashboard</a>
+      </li>
+      <li class="text-gray-600 font-medium">/</li>
+      <li class="text-gray-600 font-medium">Analytics</li>
+  </ul>
+  
+  <!-- Right-hand side icons and dropdown -->
+  <ul class="ml-auto flex items-center">
+      <!-- Search Dropdown -->
+      <li class="mr-1 dropdown relative">
+          <button type="button" class="btn btn-secondary dropdown-toggle text-gray-500 w-6 h- rounded flex items-center justify-center" id="dropdownMenuButton" aria-haspopup="true" aria-expanded="false">
+              <i class="ri-search-line"></i>
+          </button>
+          <div class="dropdown-menu hidden shadow-md bg-white overflow-hidden z-10 absolute top-8 right-1 w-40" id="searchDropdown">
+              <form class="px-2 py-2">
+                  <div class="form-group">
+                      <input type="text" class="form-control overflow-x-hidden w-full" id="searchInput" placeholder="Search">
+                  </div>
+              </form>
+              <ul class="list-group rounded-md">
+                  <li class="list-group-item hover:bg-gray-100 text-gray-700 p-2" href="#">Option 1</li>
+                  <li class="list-group-item hover:bg-gray-100 text-gray-700 p-2" href="#">Option 2</li>
+                  <li class="list-group-item hover:bg-gray-100 text-gray-700 p-2" href="#">Option 3</li>
+              </ul>
+          </div>
+      </li>
+      
+      <!-- Notification Button -->
+      <li class="mr-1">
+          <button type="button" class="text-gray-500 w-6 h-6 rounded flex items-center justify-center">
+              <i class="ri-notification-line"></i>
+          </button>
+      </li>
+      
+      <!-- User Avatar -->
+      <!-- <li>
+          <button>
+              <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-8 h-8 rounded-full object-cover">
+          </button>
+      </li> -->
+  </ul>
+</div>
+
+<script>
+// Select the dropdown toggle button
+const dropdownToggleButton = document.getElementById('dropdownMenuButton');
+
+// Select the dropdown menu element
+const dropdownMenu = dropdownToggleButton.nextElementSibling;
+
+// Function to toggle visibility of the dropdown menu
+function toggleDropdownMenu() {
+  dropdownMenu.classList.toggle('hidden');
+  // Clear search input when dropdown closes
+  if (!dropdownMenu.classList.contains('hidden')) {
+    document.getElementById('searchInput').value = '';
+  }
+}
+
+// Add click event listener to the toggle button
+dropdownToggleButton.addEventListener('click', toggleDropdownMenu);
+
+</script>
+
+<!-- cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+  <!-- Card 1 -->
+  <div class="p-6 sm:text-sm sm:w-full">
+    <div class="bg-white rounded-md shadow border border-gray-300 p-6 sm:max-w-full">
+        <div class="flex justify-between items-center mb-4 sm:mb-0">
+            <div>
+                <div class="text-2xl font-semibold">10</div>
+                <div class="text-sm font-medium text-gray-400">Active orders</div>
+            </div>
+            <div class="relative inline-block">
+                <button id="dropdownButton1" type="button" class="dropdown-trigger flex items-center focus:outline-none px-1 rounded-md">
+                    <i class="ri-more-2-line"></i>
+                </button>
+                <ul id="dropdownMenu1" class="dropdown-content absolute hidden right-0 top-full mt-2 w-48 rounded-md shadow-sm bg-white overflow-hidden z-10">
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Profile</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Settings</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-red-500">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-full flex flex-col sm:flex-row sm:justify-between">
+            <div class="w-full mb-4 sm:w-1/2">
+                <div class="w-full h-2 bg-gray-300 rounded-xl relative">
+                    <div class="w-2/4 h-full bg-blue-600 rounded-xl"></div>
+                </div>
+                <div class="text-center text-sm font-medium text-gray-600 mt-2">60%</div>
+            </div>
+            <div class="w-full sm:w-1/2"></div>
+        </div>
+    </div>
+</div>
+<script>
+  document.getElementById('dropdownButton1').addEventListener('click', () => {
+      const menu = document.getElementById('dropdownMenu1');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('dropdown-open');
+  });
+
+  // Close dropdown if clicked outside
+  window.addEventListener('click', (e) => {
+      const menu = document.getElementById('dropdownMenu1');
+      const button = document.getElementById('dropdownButton1');
+      if (!button.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.add('hidden');
+          menu.classList.remove('dropdown-open');
+      }
+  });
+</script>
+  <!-- Card 2 -->
+  <div class="p-6 sm:w-full">
+    <div class="bg-white rounded-md shadow border border-gray-300 p-6">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <div class="text-2xl font-semibold">324</div>
+                <div class="text-sm font-medium text-gray-400">Visitors</div>
+                <div class="mt-0 flex flex-wrap">
+                    <img src="images/download (2).png" alt="" class="rounded-full object-cover h-4 w-4 mr-1">
+                    <img src="images/download (2).png" alt="" class="rounded-full object-cover h-4 w-4 mr-1">
+                    <img src="images/download (2).png" alt="" class="rounded-full object-cover h-4 w-4 mr-1">
+                    <div class="text-gray-400 text-xs">+6 more</div>
+                </div>
+            </div>
+            <div class="relative inline-block">
+                <button id="dropdownButton2" type="button" class="dropdown-trigger2 flex items-center focus:outline-none px-1 rounded-md">
+                    <i class="ri-more-2-line"></i>
+                </button>
+                <ul id="dropdownMenu2" class="dropdown-content2 absolute hidden right-0 top-full mt-2 w-48 rounded-md shadow-sm bg-white overflow-hidden z-10">
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Profile</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Settings</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-red-500">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  document.getElementById('dropdownButton2').addEventListener('click', () => {
+      const menu = document.getElementById('dropdownMenu2');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('dropdown-open');
+  });
+
+  // Close dropdown if clicked outside
+  window.addEventListener('click', (e) => {
+      const menu = document.getElementById('dropdownMenu2');
+      const button = document.getElementById('dropdownButton2');
+      if (!button.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.add('hidden');
+          menu.classList.remove('dropdown-open');
+      }
+  });
+</script>
+
+
+  <!-- Card 3 -->
+  <div class="p-6">
+    <div class="bg-white rounded-md shadow border border-gray-300 p-6">
+        <div class="flex justify-between items-center mb-4">
+            <div>
+                <div class="text-2xl font-semibold flex items-center">
+                    <span class="text-gray-400 mr-1">$</span>2345
+                </div>
+                <div class="text-sm font-medium text-gray-400">Active Orders</div>
+                <div class="mt-0 text-center sm:text-left">
+                    <a href="#" class="text-blue-400">View details</a>
+                </div>
+            </div>
+            <div class="relative inline-block">
+                <button id="dropdownButton3" type="button" class="dropdown-trigger3 focus:outline-none px-1 rounded-md">
+                    <i class="ri-more-2-line"></i>
+                </button>
+                <ul id="dropdownMenu3" class="dropdown-content3 absolute hidden right-0 top-full mt-2 w-48 rounded-md shadow-sm bg-white overflow-hidden z-10">
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Profile</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-gray-700">Settings</a>
+                    </li>
+                    <li class="dropdown-item px-4 py-2 hover:bg-gray-100">
+                        <a href="#" class="text-sm font-medium text-red-500">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('dropdownButton3').addEventListener('click', () => {
+        const menu = document.getElementById('dropdownMenu3');
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('dropdown-open');
+    });
+
+    // Close dropdown if clicked outside
+    window.addEventListener('click', (e) => {
+        const menu = document.getElementById('dropdownMenu3');
+        const button = document.getElementById('dropdownButton3');
+        if (!button.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.add('hidden');
+            menu.classList.remove('dropdown-open');
+        }
+    });
+</script>
+
+
+  <!-- Add more cards here as needed -->
+</div>
+
+<script>
+  document.getElementById('card1').addEventListener('click', () => {
+      const menu = document.getElementById('menucard1');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('dropdown-open');
+  });
+
+  document.getElementById('card2').addEventListener('click', () => {
+      const menu = document.getElementById('menucard2');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('dropdown-open');
+  });
+
+  document.getElementById('card3').addEventListener('click', () => {
+      const menu = document.getElementById('menucard3');
+      menu.classList.toggle('hidden');
+      menu.classList.toggle('dropdown-open');
+  });
+
+  // Close dropdowns if clicked outside
+  window.addEventListener('click', (e) => {
+      ['menucard1', 'menucard2', 'menucard3'].forEach(id => {
+          const menu = document.getElementById(id);
+          const button = document.querySelector(`#${id.replace('menu', '')}`);
+          if (!button.contains(e.target) && !menu.contains(e.target)) {
+              menu.classList.add('hidden');
+              menu.classList.remove('dropdown-open');
+          }
+      });
+  });
+</script>
+
+
+<!-- tables  -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+  <!-- table 1 -->
+  <div class=" w-auto">
+      <div class="container mx-2 px-4 py-6 bg-gray-300">
+          <div class="mb-8 flex justify-between items-center">
+              <h2 class="text-2xl font-bold text-gray-800">Manage Orders</h2>
+              <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Add New Order</button>
+          </div>
+          <nav class="bg-white shadow-md mb-8">
+              <div class="container mx-auto px-4 py-2">
+                  <ul class="flex flex-wrap justify-start">
+                      <li class="mr-4">
+                          <button id="activeBtn" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders('Active')">Active</button>
+                      </li>
+                      <li class="mr-4">
+                          <button id="completedBtn" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders('Completed')">Completed</button>
+                      </li>
+                      <li>
+                          <button id="cancelledBtn" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders('Canceled')">Cancelled</button>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+          <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+              <table class="min-w-full bg-white" id="ordersTable">
+                  <thead class="bg-gray-200 text-gray-600 uppercase text-sm">
+                      <tr>
+                          <th class="py-3 px-6 text-left">Order ID</th>
+                          <th class="py-3 px-6 text-left">Customer</th>
+                          <th class="py-3 px-6 text-center">Status</th>
+                          <th class="py-3 px-6 text-center">Date</th>
+                          <th class="py-3 px-6 text-center">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody class="text-gray-600 text-sm font-light">
+                      <!-- Orders rows will be dynamically inserted here -->
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+  
+  <script>
+      // Sample data for orders
+      const orders = [
+          { id: '#12345', customer: 'John Doe', status: 'Active', date: '2023-06-01' },
+          { id: '#12346', customer: 'Jane Smith', status: 'Completed', date: '2023-05-21' },
+          { id: '#12347', customer: 'Alice Johnson', status: 'Canceled', date: '2023-04-18' },
+          { id: '#12348', customer: 'Bob Brown', status: 'Active', date: '2023-03-11' },
+          { id: '#12349', customer: 'Charlie Black', status: 'Completed', date: '2023-02-15' },
+          { id: '#12350', customer: 'Diana White', status: 'Canceled', date: '2023-01-30' }
+      ];
+  
+      // Function to display orders in the table
+      function displayOrders(filteredOrders) {
+          const ordersTable = document.getElementById('ordersTable').getElementsByTagName('tbody')[0];
+          ordersTable.innerHTML = '';
+          filteredOrders.forEach(order => {
+              const row = document.createElement('tr');
+              row.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+              row.innerHTML = `
+                  <td class="py-3 px-6 text-left">${order.id}</td>
+                  <td class="py-3 px-6 text-left">${order.customer}</td>
+                  <td class="py-3 px-6 text-center">
+                      <span class="py-1 px-3 rounded-full text-xs ${getStatusClasses(order.status)}">${order.status}</span>
+                  </td>
+                  <td class="py-3 px-6 text-center">${order.date}</td>
+                  <td class="py-3 px-6 text-center">
+                      <div class="flex items-center justify-center space-x-4">
+                          <button type="button" class="edit-button flex items-center focus:outline-none px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300">
+                              <i class="ri-pencil-line text-gray-600"></i>
+                              <span class="ml-2 text-sm font-medium text-gray-700">Edit</span>
+                          </button>
+                          <button type="button" class="delete-button flex items-center focus:outline-none px-2 py-1 rounded-md bg-red-200 hover:bg-red-300">
+                              <i class="ri-delete-bin-line text-red-600"></i>
+                              <span class="ml-2 text-sm font-medium text-red-700">Delete</span>
+                          </button>
+                      </div>
+                  </td>
+              `;
+              ordersTable.appendChild(row);
+          });
+      }
+  
+      // Function to filter orders based on status
+      function filterOrders(status) {
+          const filteredOrders = orders.filter(order => order.status === status);
+          displayOrders(filteredOrders);
+      }
+  
+      // Helper function to get status-specific classes
+      function getStatusClasses(status) {
+          switch (status) {
+              case 'Active':
+                  return 'bg-blue-200 text-blue-600';
+              case 'Completed':
+                  return 'bg-green-200 text-green-600';
+              case 'Canceled':
+                  return 'bg-red-200 text-red-600';
+              default:
+                  return '';
+          }
+      }
+  
+      // Display all active orders on initial load
+      filterOrders('Active');
+  </script>
+  
+<!-- TABLE-2 -->
+<div class=" w-auto">
+  <div class="">
+  <div class="custom-container mx-2 px-4 py-6 bg-gray-300">
+      <div class="mb-8 flex justify-between items-center">
+          <h2 class="text-2xl font-bold text-gray-800">Manage Orders</h2>
+          <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">Add New Order</button>
+      </div>
+      <nav class="bg-white shadow-md mb-8">
+
+<div class="custom-container mx-auto px-4 py-2">
+<ul class="flex flex-wrap justify-start">
+  <li class="mr-4">
+      <button id="activeBtn2" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders2('Active')">Active</button>
+  </li>
+  <li class="mr-4">
+      <button id="completedBtn2" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders2('Completed')">Completed</button>
+  </li>
+  <li>
+      <button id="cancelledBtn2" class="text-gray-800 hover:text-white hover:bg-blue-600 px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:bg-blue-600 focus:text-white" onclick="filterOrders2('Canceled')">Cancelled</button>
+  </li>
+</ul>
+</div>
+</nav>
+<div class="bg-white shadow-md rounded-lg overflow-x-auto">
+<table class="min-w-full bg-white" id="ordersTable2">
+<thead class="bg-gray-200 text-gray-600 uppercase text-sm">
+  <tr>
+      <th class="py-3 px-6 text-left">Order ID</th>
+      <th class="py-3 px-6 text-left">Customer</th>
+      <th class="py-3 px-6 text-center">Status</th>
+      <th class="py-3 px-6 text-center">Date</th>
+      <th class="py-3 px-6 text-center">Actions</th>
+  </tr>
+</thead>
+<tbody class="text-gray-600 text-sm font-light">
+  <!-- Orders rows will be dynamically inserted here -->
+</tbody>
+</table>
+</div>
+</div>
+  </div>
+</div>
+
+<script>
+  // Sample data for orders
+  const orders2 = [
+      { id: '#12345', customer: 'John Doe', status: 'Active', date: '2023-06-01' },
+      { id: '#12346', customer: 'Jane Smith', status: 'Completed', date: '2023-05-21' },
+      { id: '#12347', customer: 'Alice Johnson', status: 'Canceled', date: '2023-04-18' },
+      { id: '#12348', customer: 'Bob Brown', status: 'Active', date: '2023-03-11' },
+      { id: '#12349', customer: 'Charlie Black', status: 'Completed', date: '2023-02-15' },
+      { id: '#12350', customer: 'Diana White', status: 'Canceled', date: '2023-01-30' }
+  ];
+
+  // Function to display orders in the table
+  function displayOrders2(filteredOrders) {
+      const ordersTable = document.getElementById('ordersTable2').getElementsByTagName('tbody')[0];
+      ordersTable.innerHTML = '';
+      filteredOrders.forEach(order => {
+          const row = document.createElement('tr');
+          row.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+          row.innerHTML = `
+              <td class="py-3 px-6 text-left">${order.id}</td>
+              <td class="py-3 px-6 text-left">${order.customer}</td>
+              <td class="py-3 px-6 text-center">
+                  <span class="py-1 px-3 rounded-full text-xs ${getStatusClasses2(order.status)}">${order.status}</span>
+              </td>
+              <td class="py-3 px-6 text-center">${order.date}</td>
+              <td class="py-3 px-6 text-center">
+                  <div class="flex items-center justify-center space-x-4">
+                      <button type="button" class="edit-button flex items-center focus:outline-none px-2 py-1 rounded-md bg-gray-200 hover:bg-gray-300">
+                          <i class="ri-pencil-line text-gray-600"></i>
+                          <span class="ml-2 text-sm font-medium text-gray-700">Edit</span>
+                      </button>
+                      <button type="button" class="delete-button flex items-center focus:outline-none px-2 py-1 rounded-md bg-red-200 hover:bg-red-300">
+                          <i class="ri-delete-bin-line text-red-600"></i>
+                          <span class="ml-2 text-sm font-medium text-red-700">Delete</span>
+                      </button>
+                  </div>
+              </td>
+          `;
+          ordersTable.appendChild(row);
+      });
+  }
+
+  // Function to filter orders based on status
+  function filterOrders2(status) {
+      const filteredOrders = orders2.filter(order => order.status === status);
+      displayOrders2(filteredOrders);
+  }
+
+  // Helper function to get status-specific classes
+  function getStatusClasses2(status) {
+      switch (status) {
+          case 'Active':
+              return 'bg-blue-200 text-blue-600';
+          case 'Completed':
+              return 'bg-green-200 text-green-600';
+          case 'Canceled':
+              return 'bg-red-200 text-red-600';
+          default:
+              return '';
+      }
+  }
+
+  // Display all active orders on initial load
+  filterOrders2('Active');
+</script>
+       
+
+</div>
+
+<!-- statistis -->
+<div class="container mx-auto px-4">
+  <div class="m-4">
+      <div class="text-xl font-bold text-gray-800">Order Statistics</div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 mt-4 gap-4">
+      <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+              <div class="sm-card p-4 border border-gray-300 shadow-lg">
+                  <h2 class="text-xl font-semibold text-gray-900">10<span class="bg-gray-300 text-blue-400 rounded px-2 ml-2">$80</span></h2>
+                  <p class="text-gray-600 text-sm">Active</p>
+              </div>
+              <div class="sm-card p-4 border border-gray-300 shadow-lg">
+                  <h2 class="text-xl font-semibold text-gray-900">50<span class="bg-gray-300 text-green-400 rounded px-2 ml-2">$80</span></h2>
+                  <p class="text-gray-600 text-sm">Completed</p>
+              </div>
+              <div class="sm-card p-4 border border-gray-300 shadow-lg">
+                  <h2 class="text-xl font-semibold text-gray-900">4<span class="bg-gray-300 text-red-400 rounded px-2 ml-2">$80</span></h2>
+                  <p class="text-gray-600 text-sm">Canceled</p>
+              </div>
+          </div>
+          <div class="img mt-4">
+              <img src="images/download.png" alt="Placeholder" class="w-full">
+          </div>
+      </div>
+      
+      <div class="border border-black/5 shadow">
+          <table class="w-full border-collapse border border-gray-300">
+              <thead>
+                  <tr>
+                      <th class="py-2 px-4 bg-gray-200 text-left text-sm font-semibold text-gray-700 border border-gray-300">Services</th>
+                      <th class="py-2 px-4 bg-gray-200 text-left text-sm font-semibold text-gray-700 border border-gray-300">Earnings</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td class="py-2 px-4 flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4 ">$100</td>
+                  </tr>
+                  <tr>
+                      <td class="py-2 px-4 flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4 ">$100</td>
+                  </tr>
+                  <tr>
+                      <td class="py-2 px-4  flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4 ">$100</td>
+                  </tr>
+                  <tr>
+                      <td class="py-2 px-4  flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4 ">$100</td>
+                  </tr>
+                  <tr>
+                      <td class="py-2 px-4 flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4 ">$100</td>
+                  </tr>
+                  <tr>
+                      <td class="py-2 px-4  flex">
+                          <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                      <td class="py-2 px-4">$100</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 px-4  flex">
+                        <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                    <td class="py-2 px-4">$100</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-4  flex">
+                      <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                  <td class="py-2 px-4">$100</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4  flex">
+                    <img src="images\32x32.svg" alt="" class="rounded-full">create landing page</td>
+                <td class="py-2 px-4">$100</td>
+            </tr>
+                 
+              </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
